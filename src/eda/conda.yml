@@ -13,4 +13,6 @@ dependencies:
   - ipywidgets=7.6.3
   - pip:
       - wandb==0.10.31
+      - jupyter
       - protobuf==3.20.*
+      
