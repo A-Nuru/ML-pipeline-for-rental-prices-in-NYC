@@ -99,15 +99,24 @@ def go(args):
         input_example=X_val.iloc[:5]
     )
     
-    
-    ######################################
-    # Upload the model we just exported to W&B
-    # HINT: use wandb.Artifact to create an artifact. Use args.output_artifact as artifact name, "model_export" as
-    # type, provide a description and add rf_config as metadata. Then, use the .add_dir method of the artifact instance
-    # you just created to add the "random_forest_dir" directory to the artifact, and finally use
-    # run.log_artifact to log the artifact to the run
-    # YOUR CODE HERE
-    ######################################
+    # Upload the model we just exported to W&B i.e logging artifact to the run
+     artifact = wandb.Artifact(
+        args.output_artifact,
+        type="model_export",
+        description="Trained pipeline artifact",
+        metadata=rf_config
+    )
+    artifact.add_dir(export_path)
+    run.log_artifact(artifact)
+
+    # Plot feature importance
+    fig_feat_imp = plot_feature_importance(sk_pipe, processed_features)
+
+    # Here we save r_squared under the "r2" key
+    run.summary['r2'] = r_squared
+    # Now log the variable "mae" under the key "mae".
+    run.summary['mae'] = mae
+
 
     # Plot feature importance
     fig_feat_imp = plot_feature_importance(sk_pipe, processed_features)
