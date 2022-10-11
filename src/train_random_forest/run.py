@@ -121,12 +121,11 @@ def go(args):
     # Plot feature importance
     fig_feat_imp = plot_feature_importance(sk_pipe, processed_features)
 
-    ######################################
-    # Here we save r_squared under the "r2" key
+    # log r_squared to weight and biasis
     run.summary['r2'] = r_squared
-    # Now log the variable "mae" under the key "mae".
-    # YOUR CODE HERE
-    ######################################
+    
+    # log mae to weight and biasis
+    run.summary['mae'] = mae
 
     # Upload to W&B the feture importance visualization
     run.log(
