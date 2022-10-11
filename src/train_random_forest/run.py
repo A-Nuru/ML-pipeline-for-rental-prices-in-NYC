@@ -69,12 +69,8 @@ def go(args):
     sk_pipe, processed_features = get_inference_pipeline(rf_config, args.max_tfidf_features)
 
     # Then fit it to the X_train, y_train data
-    logger.info("Fitting")
-
-    ######################################
-    # Fit the pipeline sk_pipe by calling the .fit method on X_train and y_train
-    # YOUR CODE HERE
-    ######################################
+    logger.info("Fitting")    
+    sk_pipe.fit(X_train, y_train)
 
     # Compute r2 and MAE
     logger.info("Scoring")
@@ -91,13 +87,19 @@ def go(args):
     # Save model package in the MLFlow sklearn format
     if os.path.exists("random_forest_dir"):
         shutil.rmtree("random_forest_dir")
+   
+    export_path = "random_forest_dir"
+    signature = infer_signature(X_val, y_pred)
 
-    ######################################
-    # Save the sk_pipe pipeline as a mlflow.sklearn model in the directory "random_forest_dir"
-    # HINT: use mlflow.sklearn.save_model
-    # YOUR CODE HERE
-    ######################################
-
+    mlflow.sklearn.save_model(
+        sk_pipe,
+        export_path,
+        signature=signature,
+        serialization_format=mlflow.sklearn.SERIALIZATION_FORMAT_CLOUDPICKLE,
+        input_example=X_val.iloc[:5]
+    )
+    
+    
     ######################################
     # Upload the model we just exported to W&B
     # HINT: use wandb.Artifact to create an artifact. Use args.output_artifact as artifact name, "model_export" as
