@@ -18,6 +18,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, FunctionTransformer
+from mlflow.models import infer_signature
 
 import wandb
 from sklearn.ensemble import RandomForestRegressor
@@ -100,7 +101,7 @@ def go(args):
     )
     
     # Upload the model we just exported to W&B i.e logging artifact to the run
-     artifact = wandb.Artifact(
+    artifact = wandb.Artifact(
         args.output_artifact,
         type="model_export",
         description="Trained pipeline artifact",
