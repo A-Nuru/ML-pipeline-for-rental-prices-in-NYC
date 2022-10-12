@@ -126,6 +126,7 @@ def go(args):
     
     # log mae to weight and biasis
     run.summary['mae'] = mae
+  
 
     # Upload to W&B the feture importance visualization
     run.log(
@@ -161,13 +162,11 @@ def get_inference_pipeline(rf_config, max_tfidf_features):
     # is mandatory on the websites, so missing values are not possible in production
     # (nor during training). That is not true for neighbourhood_group
     ordinal_categorical_preproc = OrdinalEncoder()
-
-    ######################################
-    # Build a pipeline with two steps:
-    # 1 - A SimpleImputer(strategy="most_frequent") to impute missing values
-    # 2 - A OneHotEncoder() step to encode the variable
-    non_ordinal_categorical_preproc = # YOUR CODE HERE
-    ######################################
+  
+    non_ordinal_categorical_preproc = make_pipeline(
+        SimpleImputer(strategy="most_frequent"),
+        OneHotEncoder()
+    )
 
     # Let's impute the numerical columns to make sure we can handle missing values
     # (note that we do not scale because the RF algorithm does not need that)
