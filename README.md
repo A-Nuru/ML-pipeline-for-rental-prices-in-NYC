@@ -1,10 +1,10 @@
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
-You are working for a property management company renting rooms and properties for short periods of 
-time on various rental platforms. You need to estimate the typical price for a given property based 
-on the price of similar properties. Your company receives new data in bulk every week. The model needs 
+We are working for a property management company renting rooms and properties for short periods of 
+time on various rental platforms. We need to estimate the typical price for a given property based 
+on the price of similar properties. Our company receives new data in bulk every week. The model needs 
 to be retrained with the same cadence, necessitating an end-to-end pipeline that can be reused.
 
-In this project you will build such a pipeline.
+In this project, we will build a pipeline.
 
 ## Table of contents
 
@@ -563,6 +563,9 @@ This will drop rows in the dataset that are not in the proper geolocation.
 Then commit your change, make a new release (for example ``1.0.1``) and retry (of course you need to use 
 ``-v 1.0.1`` when calling mlflow this time). Now the run should succeed and voit la', 
 you have trained your new model on the new data.
+
+#### View the project on Weight and Biases [here](https://wandb.ai/nuru/nyc_airbnb?workspace=user-nuru), and on Github [here](https://github.com/A-Nuru/ML-pipeline-for-rental-prices-in-NYC.git)
+
 
 ## License
 
